@@ -23,7 +23,7 @@ import {
 import { Link } from '@chakra-ui/next-js'
 import { Cart, Product } from '@/product/types'
 
-const CartDrawer = ({isOpen, onClose, text, cart}: any) => {
+const CartDrawer = ({ isOpen, onClose, text, cart }: any) => {
 
   const firstField = React.useRef(null)
 
@@ -40,9 +40,9 @@ const CartDrawer = ({isOpen, onClose, text, cart}: any) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          
-            {cart.sort().map((prod: Cart)=>(
-              <>
+
+          {cart.sort().map((prod: Cart) => (
+            <>
               <DrawerHeader borderBottomWidth='1px' key={prod.id}>{prod.title}{prod.quantity}</DrawerHeader>
               <DrawerBody>
                 <Stack spacing='5px'>
@@ -57,9 +57,9 @@ const CartDrawer = ({isOpen, onClose, text, cart}: any) => {
 
                 </Stack>
               </DrawerBody>
-              </>
-            ))}
-          
+            </>
+          ))}
+
 
           <DrawerBody>
             <Stack spacing='5px'>
@@ -106,20 +106,20 @@ const CartDrawer = ({isOpen, onClose, text, cart}: any) => {
             </Button>
             {/* <Button colorScheme='blue'>Submit</Button> */}
             <Button
-              as={Link} 
-              leftIcon={<Image alt='whatsapp' src={"https://icongr.am/fontawesome/whatsapp.svg?size=30&color=ffffff"}/>}
-              isExternal 
-              href={`https://wa.me/5491140737970?text=${encodeURIComponent(text)}`} colorScheme='whatsapp' 
-              w={"fit-content"} 
+              as={Link}
+              leftIcon={<Image alt='whatsapp' src={"https://icongr.am/fontawesome/whatsapp.svg?size=30&color=ffffff"} />}
+              isExternal
+              href={`https://wa.me/5491140737970?text=${encodeURIComponent(text)}`} colorScheme='whatsapp'
+              w={"fit-content"}
               minW={"220px"}
-              _hover={{textDecoration: "None"}}
-              >
-              Finalizar compra en Whatsapp
+              _hover={{ textDecoration: "None" }}
+            >
+              Finalizar compra
             </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-      
+
     </div>
   )
 }

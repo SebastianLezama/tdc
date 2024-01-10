@@ -64,7 +64,7 @@ export default function ProductCard({ products }: Readonly<{ products: Product[]
   const [selectedImage, setSelectedImage] = React.useState<string>('')
 
   return (
-    <Box mx={9}>
+    <Box mx={9} my={10}>
       <Stack >
         <Grid gridGap={5} templateColumns="repeat(auto-fill, minmax(220px, 1fr))">
           {products.map((product: Product) =>
@@ -78,7 +78,7 @@ export default function ProductCard({ products }: Readonly<{ products: Product[]
                   <Text marginLeft={"5px"} fontSize={"md"} fontWeight={"500"}>
                     {product.title}
                   </Text>
-                  <Text marginLeft={"5px"} color={"green.600"} fontSize={"sm"} fontWeight={"700"}>
+                  <Text marginLeft={"5px"} color={"green.400"} fontSize={"sm"} fontWeight={"700"}>
                     {parseCurrency(product.price)}
                   </Text>
                 </Stack>
@@ -120,12 +120,12 @@ export default function ProductCard({ products }: Readonly<{ products: Product[]
           justifyContent={"center"}
         >
           <Button mx={3} colorScheme='teal' onClick={onOpen} w={"fit-content"}
-            minW={"220px"}
+            minW={{ base: "120px", md: "220px" }}
             _hover={{ textDecoration: "None" }}
           >Ir al carrito ({cartAmount})
           </Button>
           <Button mx={3} colorScheme='red' onClick={clearCart} w={"fit-content"}
-            minW={"220px"}
+            minW={{ base: "120px", md: "220px" }}
             _hover={{ textDecoration: "None" }}
           >Vaciar carrito
           </Button>

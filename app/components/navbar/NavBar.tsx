@@ -1,10 +1,11 @@
 'use client'
-import { Box, Divider, Flex, HStack, Heading, Image, Spacer, Stack, VStack } from '@chakra-ui/react'
+import { Box, Flex, HStack } from '@chakra-ui/react'
 import React from 'react'
 import { desktopNavStyles, navBarStack } from './style'
 import Logo from './Logo'
 import { navItems } from '@/app/helpers'
 import Link from 'next/link'
+import SearchBar from '../search/SearchBar'
 
 type Props = {}
 
@@ -17,7 +18,10 @@ const NavBar = (props: Props) => {
         {navItems.map(item => (
           <Box key={item.label}><Link href={item.href}>{item.label}</Link></Box>
         ))}
-        <Box>Search</Box>
+        <Box>
+
+          <SearchBar />
+        </Box>
 
       </HStack>
       <HStack>

@@ -4,6 +4,7 @@ import { Providers } from './providers'
 import { VStack, Image, Heading, Spacer, Divider } from '@chakra-ui/react'
 import { Link } from '@chakra-ui/next-js'
 import NavBar from './components/navbar/NavBar'
+import MobileNavBar from './components/navbar/MobileNavBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
       <body>
         <Providers>
           <NavBar />
+          <MobileNavBar />
           {children}
         </Providers>
       </body>
