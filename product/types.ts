@@ -1,0 +1,22 @@
+export interface Product {
+  id: number,
+  title: string,
+  category: string,
+  description: string,
+  image: string,
+  price: number,
+}
+export interface Cart {
+  id: number,
+  title: string,
+  category: string,
+  description: string,
+  image: string,
+  price: number,
+  quantity: number,
+}
+
+export interface NavItem {
+  label:string,
+  href: string,
+}
