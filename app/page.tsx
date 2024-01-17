@@ -1,19 +1,24 @@
-import { Heading } from '@chakra-ui/react';
+'use client'
+import { Box, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
+import Banner from './features/home/Banner';
+import TopCategories from './features/home/TopCategories';
+import FeaturedProducts from './features/home/FeaturedProducts';
+import { useProductContext } from './context/store';
+import { Product } from '@/product/types';
 
 
-const Home: React.FC = () => {
+const Index: React.FC = () => {
+
+  const context = useProductContext()
+
   return (
-    <div>
-      <Heading>
-      jelou
-      </Heading>
-      <Link href={"/products"}>Productos</Link>
-
-
-    </div>
+    <Box>
+      <Banner />
+      <FeaturedProducts products={context?.products!} setSelectedImage={context?.setSelectedImage!} handleAddToCart={context?.addToCart!} parseCurrency={context?.parseCurrency!} />
+    </Box>
   );
 }
 
-export default Home
+export default Index

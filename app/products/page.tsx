@@ -1,25 +1,13 @@
-'use server'
-import React, { cache } from 'react'
-import ProductCard from '../components/ProductCard'
-import api from '@/product/api'
-// import { list } from '@/utils'
+'use client'
+import React from 'react'
+import ProductsGrid from '../components/products/ProductsGrid'
+import { useProductContext } from '../context/store'
 
-export const getProducts = async() => {
-  const products = await api.list()
-  return {
-    props: {
-      products,
-    },
-    revalidate: 86400
-  }
-}
+export default function Productos() {
 
-
-export default async function Productos () {
-
-  const products = (await getProducts()).props.products
+  const context = useProductContext()
 
   return (
-    <ProductCard products={products}/>
+    <ProductsGrid products={context?.products!} />
   )
 }

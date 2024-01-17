@@ -2,7 +2,7 @@ import { extendTheme, theme } from "@chakra-ui/react";
 
 export default extendTheme({
   colors: {
-    primary: "hsl(197,33%,40%)",
+    primary: "hsl(197,33%,50%)",
     secondary: {
       50: "rgba(20,50,100,10%)",
       100: "rgba(20,25,29,40%)",

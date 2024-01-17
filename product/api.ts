@@ -13,7 +13,8 @@ export default {
             const products = results.data as Product[]
             return resolve(products.map((prod) => ({
               ...prod,
-              price: Number(prod.price)
+              price: Number(prod.price),
+              featured: Boolean(prod.featured),
             })))
           },
           error: (err) => reject(err.message),

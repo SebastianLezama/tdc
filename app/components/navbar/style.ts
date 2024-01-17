@@ -1,24 +1,32 @@
-import { FlexProps, StackProps } from "@chakra-ui/react";
+import { BoxProps, FlexProps, StackProps } from "@chakra-ui/react";
 
+
+export const NavStyles: BoxProps = {
+  top: 0,
+  pos: "fixed",
+  w: "100%",
+  bgColor: "white",
+  mb: "1rem",
+  zIndex: 8,
+}
 
 export const desktopNavStyles: FlexProps = {
   justify: "space-between",
   align: "center",
-  px: "2em",
-  py: "1.4em",
+  px: "2rem",
+  py: "1.4rem",
+  // mb: "1rem",
   borderBottom: "1px",
-  borderColor: "gray.400",
-  display: {base: "none", md: "flex", lg: "flex"}
+  borderColor: "gray.200",
+  display: {base: "none", sm: "flex"}
+
 }
 
 export const mobileNavStyles: FlexProps = {
-  justify: "space-between",
   align: "center",
   px: "2em",
-  py: "1.4em",
-  borderBottom: "1px",
-  borderColor: "gray.400",
-  display: {base: "flex", md: "none", lg: "none"}
+  py: "1em",
+  display: {base: "flex", sm: "none" }
 
 }
 

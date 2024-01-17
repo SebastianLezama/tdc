@@ -1,13 +1,13 @@
 import { SearchIcon } from '@chakra-ui/icons'
 import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React from 'react'
-import { mobileSearchProps } from './style'
+import { mobileSearchProps, mobileSearchWrapperProps } from './style'
 
 type Props = {}
 
 const MobileSearchBar = (props: Props) => {
   return (
-    <Box>
+    <Box {...mobileSearchWrapperProps}>
       <InputGroup size={"sm"}>
         <InputLeftElement pointerEvents={"none"}>
           <SearchIcon color={"gray.500"} />

@@ -1,16 +1,16 @@
 import { SearchIcon } from '@chakra-ui/icons'
 import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React from 'react'
-import { searchProps } from './style'
+import { searchProps, searchWrapperProps } from './style'
 
 type Props = {}
 
 const SearchBar = (props: Props) => {
   return (
-    <Box>
+    <Box {...searchWrapperProps}>
       <InputGroup size={"sm"}>
         <InputLeftElement pointerEvents={"none"}>
-          <SearchIcon color={"gray.500"} display={{ base: "none", xs: "flex", sm: "flex", md: "flex", lg: "flex" }}
+          <SearchIcon color={"gray.500"}
           />
         </InputLeftElement>
         <Input {...searchProps} />
