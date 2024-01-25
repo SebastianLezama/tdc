@@ -14,6 +14,7 @@ export const getLocalStorage = (name: string) => {
 export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) => {
   const [cart, setCart] = useState<Cart[]>(getLocalStorage("items"));
   const [products, setProducts] = useState(getLocalStorage("products"));
+  const [featuredProducts, setFeaturedProducts] = useState(getLocalStorage("featured_products"));
 
   const [cartAmount, setCartAmount] = React.useState<number>(0)
 
@@ -146,10 +147,14 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
   }
 
   const getProducts = async () => {
-
     const products = (await getProductsFromSheet()).props.products
     setProducts(products)
     localStorage.setItem("products", JSON.stringify(products));
+    const featuredProducts = products.filter((p) => p.featured === "TRUE")
+    console.log(featuredProducts)
+    setFeaturedProducts(featuredProducts)
+    localStorage.setItem("featured_products", JSON.stringify(featuredProducts));
+
   }
 
   useEffect(() => {
@@ -168,6 +173,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
   const obj = useMemo(() => ({
     cart,
     products,
+    featuredProducts,
     total,
     cartAmount,
     checkoutDetail,
@@ -188,6 +194,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     text
   }), [cart,
     products,
+    featuredProducts,
     total,
     cartAmount,
     checkoutDetail,

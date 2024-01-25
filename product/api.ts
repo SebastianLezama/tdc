@@ -14,7 +14,7 @@ export default {
             return resolve(products.map((prod) => ({
               ...prod,
               price: Number(prod.price),
-              featured: Boolean(prod.featured),
+              featured: String(prod.featured),
             })))
           },
           error: (err) => reject(err.message),

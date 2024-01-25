@@ -40,25 +40,23 @@ const CartDrawer = ({ isOpen, onClose, text, cart }: any) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
+          <DrawerHeader borderBottomWidth='1px' >Tu compra</DrawerHeader>
+              <DrawerBody >
+                <Stack spacing='10px'>
 
           {cart.sort().map((prod: Cart) => (
-            <>
-              <DrawerHeader borderBottomWidth='1px' key={prod.id}>{prod.title}{prod.quantity}</DrawerHeader>
-              <DrawerBody>
-                <Stack spacing='5px'>
 
-                  <Box>
-                    <FormLabel htmlFor='owner'>Seleccione tamaño</FormLabel>
-                    <Select id='owner' defaultValue='segun'>
+                  <Box key={prod.id}>
+                    <FormLabel htmlFor='owner'>{prod.title}</FormLabel>
+                    <Select id='owner' placeholder='Seleccione tamaño'>
                       <option value='segun'>20cm x 15cm</option>
                       <option value='kola'>40cm x 30cm</option>
                     </Select>
                   </Box>
 
+          ))}
                 </Stack>
               </DrawerBody>
-            </>
-          ))}
 
 
           <DrawerBody>

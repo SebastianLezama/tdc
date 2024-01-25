@@ -7,7 +7,7 @@ export interface Product {
   description: string,
   image: string,
   price: number,
-  featured: boolean
+  featured: string
 }
 export interface Cart {
   id: number,
@@ -17,7 +17,7 @@ export interface Cart {
   image: string,
   price: number,
   quantity: number,
-  featured: boolean
+  featured: string
 
 }
 
@@ -32,6 +32,7 @@ export interface SectionHeading {
 
 export type ContextProps = {
   products: Product []
+  featuredProducts: Product []
   cart: Cart []
   total: number
   cartAmount: number
