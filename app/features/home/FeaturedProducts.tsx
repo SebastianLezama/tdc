@@ -30,17 +30,16 @@ const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAdd
   }
 
   return (
-    <div>
-      { }
+    <Box >
       <Swiper {...sliderSettings} style={{ width: "100%", height: "100%" }}>
         {products
           .map((product) =>
-            <SwiperSlide key={product.id} style={{...sliderStyles}}>
+            <SwiperSlide key={product.id} style={{ ...sliderStyles }}>
               <ProductCard product={product} setSelectedImage={setSelectedImage} parseCurrency={parseCurrency} handleAddToCart={handleAddToCart} />
             </SwiperSlide>
           )}
       </Swiper>
-    </div>
+    </Box>
   )
 }
 
