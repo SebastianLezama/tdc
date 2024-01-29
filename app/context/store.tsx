@@ -6,16 +6,18 @@ import React, { Context, createContext, useCallback, useContext, useEffect, useM
 
 export const ProductsContext = createContext<ContextProps | null>(null)
 
-export const getLocalStorage = (name: string) => {
-  const localData = localStorage.getItem(name);
-  return localData ? JSON.parse(localData) : [];
-};
 
 export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) => {
+  const getLocalStorage = (name: string) => {
+    const localData = localStorage.getItem(name);
+    return localData ? JSON.parse(localData) : [];
+  };
+
   const [cart, setCart] = useState<Cart[]>(getLocalStorage("items"));
   const [products, setProducts] = useState(getLocalStorage("products"));
+  const [favorites, setFavorites] = useState(getLocalStorage("favorites"));
   const [featuredProducts, setFeaturedProducts] = useState(getLocalStorage("featured_products"));
-
+  
   const [cartAmount, setCartAmount] = React.useState<number>(0)
 
   const [total, setTotal] = useState(0);
@@ -49,9 +51,6 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     return cart.some((prod) => prod.id === id);
   };
 
-
-
-
   const filteredItem = (item: Product) => {
     return cart.find((prod) => prod.id === item.id);
   };
@@ -81,25 +80,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     setCartAmount(count);
   }, [cart]);
 
-  const addOne = (item: Cart) => {
-    item.quantity += 1;
-    setCart([...cart]);
-  };
 
-  const subOne = (item: Cart) => {
-    item.quantity -= 1;
-    setCart([...cart]);
-  };
-
-  const stockCart = (item: Product) => {
-    if (cart) {
-      if (isInCart(item.id)) {
-        return filteredItem(item)?.quantity!;
-      } else {
-        return 0;
-      }
-    }
-  };
 
   const checkoutOrder = (user: string, phone: number) => {
     setCheckoutDetail([
@@ -165,7 +146,6 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
   useEffect(() => {
     calcTotal();
     cartAmountCounter();
-    // getProducts()
     localStorage.setItem("items", JSON.stringify(cart));
 
   }, [cart, calcTotal, cartAmountCounter]);
@@ -173,17 +153,15 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
   const obj = useMemo(() => ({
     cart,
     products,
+    favorites,
     featuredProducts,
     total,
     cartAmount,
     checkoutDetail,
-    addOne,
-    subOne,
     isInCart,
     addToCart,
     clearCart,
     deleteItem,
-    stockCart,
     checkoutOrder,
     isOpen,
     onOpen,
@@ -194,17 +172,15 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     text
   }), [cart,
     products,
+    favorites,
     featuredProducts,
     total,
     cartAmount,
     checkoutDetail,
-    addOne,
-    subOne,
     isInCart,
     addToCart,
     clearCart,
     deleteItem,
-    stockCart,
     checkoutOrder,
     isOpen,
     onOpen,

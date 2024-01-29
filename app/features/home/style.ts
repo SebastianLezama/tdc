@@ -1,13 +1,14 @@
 import { ButtonProps, FlexProps, HeadingProps } from "@chakra-ui/react";
 
 export const bannerProps: FlexProps = {
-  // justify: "center",
+  // justifyItems: "center",
   // align: "center",
   gap: "4",
   flexDir: {base: "column", md: "column"},
   w: {base: "100%", md: "60%"},
   mx: "auto",
-  p: "2rem"
+  p: "2rem",
+  maxW: {base: "100%", md: "1000px", lg: "1500px"},
 }
 
 export const bannerHeadingProps: HeadingProps = {

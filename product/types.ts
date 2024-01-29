@@ -32,18 +32,16 @@ export interface SectionHeading {
 
 export type ContextProps = {
   products: Product []
+  favorites: Product []
   featuredProducts: Product []
   cart: Cart []
   total: number
   cartAmount: number
   checkoutDetail: []
-  addOne: (item: Cart) => void
-  subOne: (item: Cart) => void
   isInCart: (id: number) => void
   addToCart: (item: Product) => void
   clearCart: () => void
   deleteItem: (id: number) => void
-  stockCart: (item: Product) => void
   checkoutOrder: (user: string, phone: number) => void
   setSelectedImage: Dispatch<SetStateAction<string>>
   isOpen: boolean,

@@ -1,7 +1,7 @@
 'use client'
 import ProductCard from '@/app/components/products/ProductCard'
 import { Product } from '@/product/types'
-import { Box } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import React, { CSSProperties } from 'react'
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -12,7 +12,7 @@ const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAdd
 
   const sliderSettings: SwiperOptions = {
     modules: [Navigation, Autoplay],
-    spaceBetween: 10,
+    spaceBetween: 5,
     slidesPerView: "auto",
     direction: "horizontal",
     speed: 1000,
@@ -26,11 +26,13 @@ const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAdd
 
   const sliderStyles: CSSProperties = {
     boxSizing: "border-box",
-    maxWidth: "350px"
+    maxWidth: "250px",
+    minHeight: "300px"
   }
 
   return (
-    <Box >
+    <Flex justifyContent={"center"}>
+      <Box maxWidth={{base: "100%", md: "2200px"}} justifySelf={"center"} m={10}>
       <Swiper {...sliderSettings} style={{ width: "100%", height: "100%" }}>
         {products
           .map((product) =>
@@ -40,6 +42,7 @@ const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAdd
           )}
       </Swiper>
     </Box>
+    </Flex>
   )
 }
 
