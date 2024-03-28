@@ -58,7 +58,6 @@ const CartDrawer = ({ isOpen, onClose, text, cart }: any) => {
                 </Stack>
               </DrawerBody>
 
-
           <DrawerBody>
             <Stack spacing='5px'>
               <Box>
@@ -69,27 +68,6 @@ const CartDrawer = ({ isOpen, onClose, text, cart }: any) => {
                   placeholder='Please enter user name'
                 />
               </Box>
-
-              {/* <Box>
-                <FormLabel htmlFor='url'>Url</FormLabel>
-                <InputGroup>
-                  <InputLeftAddon>http://</InputLeftAddon>
-                  <Input
-                    type='url'
-                    id='url'
-                    placeholder='Please enter domain'
-                  />
-                  <InputRightAddon>.com</InputRightAddon>
-                </InputGroup>
-              </Box> */}
-
-              {/* <Box>
-                <FormLabel htmlFor='owner'>Select Owner</FormLabel>
-                <Select id='owner' defaultValue='segun'>
-                  <option value='segun'>20cm x 15cm</option>
-                  <option value='kola'>40cm x 30cm</option>
-                </Select>
-              </Box> */}
 
               <Box>
                 <FormLabel htmlFor='desc'>Comentarios</FormLabel>

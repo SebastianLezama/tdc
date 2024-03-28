@@ -72,7 +72,7 @@ export default function ProductsGrid({ products }: Readonly<{ products: Product[
   return (
     <Box mx={9}  >
       <Stack >
-        <Grid gridGap={2} templateColumns="repeat(auto-fill, minmax(180px, 1fr))">
+        <Grid gridGap={5} templateColumns="repeat(auto-fill, minmax(180px, 1fr))">
           {products.map((product: Product) =>
             <ProductCard key={product.id} product={product} setSelectedImage={context?.setSelectedImage} handleAddToCart={context?.addToCart} parseCurrency={context?.parseCurrency} />
           )}
