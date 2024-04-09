@@ -9,8 +9,10 @@ export const ProductsContext = createContext<ContextProps | null>(null)
 
 export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) => {
   const getLocalStorage = (name: string) => {
-    const localData = localStorage.getItem(name);
-    return localData ? JSON.parse(localData) : [];
+    if (typeof window !== 'undefined') {
+      const localData = localStorage.getItem(name)
+      return localData ? JSON.parse(localData) : [];
+    }
   };
 
   const [cart, setCart] = useState<Cart[]>(getLocalStorage("items"));
@@ -27,8 +29,8 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
 
   const text = React.useMemo(() => {
     return cart
-      .reduce((message, product) => message.concat(`* ${product.title} - ${parseCurrency(product.price * product.quantity)}\n`), ``)
-      .concat(`\nTotal: ${parseCurrency(cart.reduce((total, product) => total + product.price * product.quantity, 0))}`)
+      .reduce((message, product) => message.concat(`* ${product.title}: ${product.description} - ${parseCurrency(product.small)}\n`), ``)
+      .concat(`\nTotal: ${parseCurrency(cart.reduce((total, product) => total + product.small * product.quantity, 0))}`)
   }, [cart])
 
   const deleteItem = (id: number) => {
@@ -36,6 +38,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     setCart(filteredProd);
   };
 
+  // TODO add size selection
   const addItem = (item: Product) => {
     const add = cart.map((prod) =>
       prod.id === item.id
@@ -69,7 +72,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
   const calcTotal = useCallback(() => {
     const cartCopy = [...cart];
     let count = 0;
-    cartCopy.forEach((p) => (count += p.quantity * p.price));
+    cartCopy.forEach((p) => (count += p.quantity * p.small));
     setTotal(count);
   }, [cart]);
 
@@ -94,8 +97,6 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
   //   const filteredProd = cart.filter((prod) => prod.id !== id);
   //   setCart(filteredProd);
   // };
-
-
   // const filteredItem = (item: Product) => {
   //   return cart.find((prod) => prod.id === item.id);
   // };
@@ -108,6 +109,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
 
 
   function parseCurrency(value: number): string {
+    // if (value !== undefined) 
     return value.toLocaleString('es-AR', {
       style: 'currency',
       currency: 'ARS'
@@ -135,7 +137,6 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     console.log(featuredProducts)
     setFeaturedProducts(featuredProducts)
     localStorage.setItem("featured_products", JSON.stringify(featuredProducts));
-
   }
 
   useEffect(() => {

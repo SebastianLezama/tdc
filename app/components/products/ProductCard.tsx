@@ -27,7 +27,7 @@ export default function ProductCard({ product, setSelectedImage, parseCurrency, 
           <HStack justifyContent={"space-between"}>
 
             <Text fontSize={"lg"} fontWeight={"600"}>
-              {parseCurrency(product.price)}
+              {parseCurrency(product.small)}
             </Text>
 
             <Button variant={"ghost"} p={0} _hover={{ bgColor: "" }} _active={{ bgColor: "" }}>

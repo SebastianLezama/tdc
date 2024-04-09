@@ -13,7 +13,9 @@ export default {
             const products = results.data as Product[]
             return resolve(products.map((prod) => ({
               ...prod,
-              price: Number(prod.price),
+              small: Number(prod.small),
+              medium: Number(prod.medium),
+              large: Number(prod.large),
               featured: String(prod.featured),
             })))
           },

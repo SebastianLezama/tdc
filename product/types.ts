@@ -6,7 +6,9 @@ export interface Product {
   category: string,
   description: string,
   image: string,
-  price: number,
+  small: number,
+  medium: number,
+  large: number,
   featured: string
 }
 export interface Cart {
@@ -15,7 +17,9 @@ export interface Cart {
   category: string,
   description: string,
   image: string,
-  price: number,
+  small: number,
+  medium: number,
+  large: number,
   quantity: number,
   featured: string
 
