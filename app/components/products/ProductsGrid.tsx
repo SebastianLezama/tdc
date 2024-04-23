@@ -73,7 +73,7 @@ export default function ProductsGrid({ products }: Readonly<{ products: Product[
     <Box mx={9}  >
       <Stack >
         <Grid gridGap={5} templateColumns="repeat(auto-fill, minmax(180px, 1fr))">
-          {products.map((product: Product) =>
+          {products?.map((product: Product) =>
             <ProductCard key={product.id} product={product} setSelectedImage={context?.setSelectedImage} handleAddToCart={context?.addToCart} parseCurrency={context?.parseCurrency} />
           )}
         </Grid>
@@ -104,7 +104,7 @@ export default function ProductsGrid({ products }: Readonly<{ products: Product[
         text={context?.text}
         cart={context?.cart}
       />
-      {Boolean(context?.cart.length) &&
+      {Boolean(context?.cart?.length) &&
         <Flex p={4} position={"sticky"}
           bottom={4}
           alignItems={"center"}

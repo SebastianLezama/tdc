@@ -35,7 +35,7 @@ const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAdd
       <Box maxWidth={{base: "100%", md: "2200px"}} justifySelf={"center"} m={10}>
       <Swiper {...sliderSettings} style={{ width: "100%", height: "100%" }}>
         {products
-          .map((product) =>
+          ?.map((product) =>
             <SwiperSlide key={product.id} style={{ ...sliderStyles }}>
               <ProductCard product={product} setSelectedImage={setSelectedImage} parseCurrency={parseCurrency} handleAddToCart={handleAddToCart} />
             </SwiperSlide>

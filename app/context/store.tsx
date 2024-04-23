@@ -29,7 +29,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
 
   const text = React.useMemo(() => {
     return cart
-      .reduce((message, product) => message.concat(`* ${product.title}: ${product.description} - ${parseCurrency(product.small)}\n`), ``)
+      ?.reduce((message, product) => message.concat(`* ${product.title}: ${product.description} - ${parseCurrency(product.small)}\n`), ``)
       .concat(`\nTotal: ${parseCurrency(cart.reduce((total, product) => total + product.small * product.quantity, 0))}`)
   }, [cart])
 
