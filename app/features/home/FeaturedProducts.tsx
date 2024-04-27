@@ -31,7 +31,7 @@ const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAdd
   }
 
   return (
-    <Flex justifyContent={"center"}>
+    // <Flex justifyContent={"center"}>
       <Box maxWidth={{base: "100%", md: "2200px"}} justifySelf={"center"} m={10}>
       <Swiper {...sliderSettings} style={{ width: "100%", height: "100%" }}>
         {products
@@ -42,7 +42,7 @@ const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAdd
           )}
       </Swiper>
     </Box>
-    </Flex>
+    // {/* </Flex> */}
   )
 }
 

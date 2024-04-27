@@ -21,7 +21,9 @@ export interface Cart {
   medium: number,
   large: number,
   quantity: number,
-  featured: string
+  featured: string,
+  price?: number,
+  size?: string
 
 }
 

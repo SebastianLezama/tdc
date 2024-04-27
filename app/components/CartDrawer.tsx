@@ -29,13 +29,15 @@ const CartDrawer = ({ isOpen, onClose, text, cart }: any) => {
   const [paymentData, setPaymentData] = useState({})
 
   const handleChange = ({ target }) => {
-    let price = ''
+    
     if (target.name !== 'username' && target.name !== 'comments' ) {
       
-      price = cart.find((prod: Cart) => prod.id == target.name)[target.value]
+      const price = cart.find((prod: Cart) => prod.id == target.name)[target.value]
       console.log(price)
+      const size = target.value
+      
+      setPaymentData({...paymentData, [target.name]: size})
     }
-    setPaymentData({...paymentData, [target.name]: price})
   }
 
   const firstField = React.useRef(null)
@@ -61,12 +63,13 @@ const CartDrawer = ({ isOpen, onClose, text, cart }: any) => {
 
             {cart?.sort().map((prod: Cart) => (
                     <Box key={prod.id}>
-                      <FormLabel htmlFor='owner'>{prod.title}{paymentData[prod.id] ? " - $" + paymentData[prod.id] : ""}</FormLabel>
+                      <FormLabel htmlFor='owner'>{prod.title}{paymentData[prod.id] ? " - $" + prod[paymentData[prod.id]] : ""}</FormLabel>
                       <Select id='owner'
                         placeholder='Seleccione tamaño'
                         name={String(prod.id)}
                         onChange={handleChange}
                         isRequired
+                        value={paymentData[prod.id]}
                       >
                         <option value='small'>20cm x 15cm</option>
                         <option value='medium'>40cm x 30cm</option>
