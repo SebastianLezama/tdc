@@ -7,25 +7,29 @@ import { Product } from '@/product/types';
 export default function ProductCard({ product, setSelectedImage, parseCurrency, handleAddToCart }: Readonly<{ product: Product, setSelectedImage: any, parseCurrency: any, handleAddToCart: any }>) {
 
   return (
-    <Card maxW={"180px"} variant={"outline"} key={product.id} borderRadius={"sm"} justifySelf={"center"}>
+    <Card variant={"outline"} key={product.id} borderRadius={"sm"} >
       <CardBody p={0} borderRadius={"md"}>
 
-        <Stack alignContent={"center"} justifyContent={"center"}>
+        <Stack alignContent={"center"} >
 
           <Image
             onClick={() => setSelectedImage(product.image)}
-            cursor={"pointer"} alt={product.title} src={product.image} maxW={"100%"} maxH={"150px"} objectFit={"cover"} borderRadius={"xs"} justifySelf={"center"}
+            cursor={"pointer"} alt={product.title} src={product.image} w={"340px"} h={"180px"} objectFit={"cover"} borderRadius={"xs"} justifySelf={"center"}
           />
         </Stack>
       </CardBody>
 
-      <CardFooter p={2} alignItems={"center"} justifyContent={"center"}>
-        <Stack pt={1} justifyContent={"space-between"}>
+      <CardFooter p={2} w={"100%"} alignItems={"center"} justifyContent={"center"}>
+        <Stack pt={1} w={"100%"}>
+          <HStack justifyContent={"space-between"}>
+
           <Text fontSize={"lg"} fontWeight={"500"}>
             {product.title}
           </Text>
+          <Text fontSize={"lg"} color={"purple"}>{product.category}</Text>
+          </HStack>
           <HStack justifyContent={"space-between"}>
-
+            <Text fontSize={"sm"} fontWeight={"300"}>Small</Text>
             <Text fontSize={"lg"} fontWeight={"600"}>
               {parseCurrency(product.price)}
             </Text>
@@ -37,7 +41,7 @@ export default function ProductCard({ product, setSelectedImage, parseCurrency, 
           </HStack>
 
 
-          <Button variant={"outline"} size={"sm"} borderRadius={"sm"} borderColor="primary" color={"primary"} _hover={{ bgColor: "secondary.300", color: "white", borderColor: "secondary.200" }} onClick={() => handleAddToCart(product)}>Agregar al carrito</Button>
+          <Button variant={"outline"} size={"md"} borderRadius={"sm"} borderColor="primary" color={"primary"} _hover={{ bgColor: "secondary.300", color: "white", borderColor: "secondary.200" }} onClick={() => handleAddToCart(product)}>Agregar al carrito</Button>
         </Stack>
       </CardFooter>
     </Card>

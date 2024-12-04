@@ -11,7 +11,7 @@ export const NavStyles: BoxProps = {
 }
 
 export const desktopNavStyles: FlexProps = {
-  justify: "space-between",
+  justify: "space-evenly",
   align: "center",
   px: "2rem",
   py: "1.4rem",

@@ -1,6 +1,6 @@
 'use client'
-import { Cart, Product } from '@/product/types';
-import { Box, Button, Card, CardBody, CardFooter, Container, Flex, Grid, HStack, Image, Stack, Text, useDisclosure } from '@chakra-ui/react';
+import { Product } from '@/product/types';
+import { Box, Button, Flex, Grid, Image, Stack } from '@chakra-ui/react';
 import React from 'react';
 import CartDrawer from '../CartDrawer';
 import ProductCard from './ProductCard';
@@ -8,71 +8,13 @@ import { useProductContext } from '@/app/context/store';
 
 
 export default function ProductsGrid({ products }: Readonly<{ products: Product[] }>) {
-  // const [cart, setCart] = React.useState<Cart[]>([])
-  // const [cartAmount, setCartAmount] = React.useState<number>(0)
-
-  // const text = React.useMemo(() => {
-  //   return cart
-  //     .reduce((message, product) => message.concat(`* ${product.title} - ${parseCurrency(product.price)}\n`), ``)
-  //     .concat(`\nTotal: ${parseCurrency(cart.reduce((total, product) => total + product.price, 0))}`)
-  // }, [cart])
-
-  // // const deleteItem = (id: number) => {
-  // //   const filteredProd = cart.filter((prod) => prod.id !== id);
-  // //   setCart(filteredProd);
-  // // };
-
-  // const addItem = (item: Product) => {
-  //   const add = cart.map((prod) =>
-  //     prod.id === item.id
-  //       ? { ...prod, quantity: prod.quantity + 1 }
-  //       : prod
-  //   );
-  //   setCart(add);
-  //   setCartAmount(cartAmount + 1)
-  // };
-
-  // const isInCart = (id: number) => {
-  //   return cart.some((prod) => prod.id === id);
-  // };
-
-  // // const filteredItem = (item: Product) => {
-  // //   return cart.find((prod) => prod.id === item.id);
-  // // };
-
-
-  // const handleAddToCart = (item: Product) => {
-  //   if (isInCart(item.id)) {
-  //     addItem(item);
-  //   } else {
-  //     setCart([...cart, { ...item, quantity: 1 }]);
-  //     setCartAmount(cartAmount + 1)
-  //   }
-  // };
-
-  // const clearCart = () => {
-  //   setCart([]);
-  //   setCartAmount(0)
-  // };
-
-
-  // function parseCurrency(value: number): string {
-  //   return value.toLocaleString('es-AR', {
-  //     style: 'currency',
-  //     currency: 'ARS'
-  //   })
-  // }
-
-  // const { isOpen, onOpen, onClose } = useDisclosure()
-  // const [selectedImage, setSelectedImage] = React.useState<string>('')
-
-
+  
   const context = useProductContext()
 
   return (
     <Box mx={9}  >
       <Stack >
-        <Grid gridGap={5} templateColumns="repeat(auto-fill, minmax(180px, 1fr))">
+        <Grid gridGap={8} templateColumns="repeat(auto-fill, minmax(250px, 2fr))">
           {products.map((product: Product) =>
             <ProductCard key={product.id} product={product} setSelectedImage={context?.setSelectedImage} handleAddToCart={context?.addToCart} parseCurrency={context?.parseCurrency} />
           )}

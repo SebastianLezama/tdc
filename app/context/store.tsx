@@ -9,7 +9,7 @@ export const ProductsContext = createContext<ContextProps | null>(null)
 
 export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) => {
   const getLocalStorage = (name: string) => {
-    const localData = localStorage.getItem(name);
+    const localData = localStorage?.getItem(name);
     return localData ? JSON.parse(localData) : [];
   };
 
@@ -25,6 +25,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     getLocalStorage("checkout")
   );
 
+  // Whatsapp text
   const text = React.useMemo(() => {
     return cart
       .reduce((message, product) => message.concat(`* ${product.title} - ${parseCurrency(product.price * product.quantity)}\n`), ``)
@@ -36,6 +37,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     setCart(filteredProd);
   };
 
+  // TODO - unique items per size
   const addItem = (item: Product) => {
     const add = cart.map((prod) =>
       prod.id === item.id
@@ -130,6 +132,7 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
   const getProducts = async () => {
     const products = (await getProductsFromSheet()).props.products
     setProducts(products)
+
     localStorage.setItem("products", JSON.stringify(products));
     const featuredProducts = products.filter((p) => p.featured === "TRUE")
     console.log(featuredProducts)

@@ -7,6 +7,9 @@ export interface Product {
   description: string,
   image: string,
   price: number,
+  small: number,
+  medium: number,
+  large: number,
   featured: string
 }
 export interface Cart {
