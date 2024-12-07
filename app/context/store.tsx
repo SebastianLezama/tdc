@@ -8,22 +8,56 @@ export const ProductsContext = createContext<ContextProps | null>(null)
 
 
 export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) => {
-  const getLocalStorage = (name: string) => {
-    const localData = localStorage?.getItem(name);
-    return localData ? JSON.parse(localData) : [];
-  };
 
-  const [cart, setCart] = useState<Cart[]>(getLocalStorage("items"));
-  const [products, setProducts] = useState(getLocalStorage("products"));
-  const [favorites, setFavorites] = useState(getLocalStorage("favorites"));
-  const [featuredProducts, setFeaturedProducts] = useState(getLocalStorage("featured_products"));
+  const [isClient, setIsClient] = useState(false)
+
+  const getLocalStorage = (name: string) => {
+    
+    if (isClient) {
+      const localData = localStorage?.getItem(name);
+      return localData ? JSON.parse(localData) : [];
+    }
+  };
   
   const [cartAmount, setCartAmount] = React.useState<number>(0)
-
   const [total, setTotal] = useState(0);
-  const [checkoutDetail, setCheckoutDetail] = useState(
-    getLocalStorage("checkout")
+  
+  const [cart, setCart] = useState<Cart[]>(isClient ? getLocalStorage("items") : []);
+  const [products, setProducts] = useState(isClient ? getLocalStorage("products") : []);
+  const [favorites, setFavorites] = useState(isClient ? getLocalStorage("favorites") : []);
+  const [featuredProducts, setFeaturedProducts] = useState(isClient ? getLocalStorage("featured_products") : []);
+  const [checkoutDetail, setCheckoutDetail] = useState(isClient ? 
+    getLocalStorage("checkout") : []
   );
+  
+  const getProductsFromSheet = async () => {
+    const products = await api.list()
+    return {
+      props: {
+        products,
+      },
+      revalidate: 86400
+    }
+  }
+  
+    useEffect(() => {
+      setIsClient(true)
+      getProducts()
+    }, [])
+
+  const getProducts = async () => {
+    const products = (await getProductsFromSheet()).props.products
+    setProducts(products)
+    const featuredProducts = products.filter((p) => p.featured === "TRUE")
+    setFeaturedProducts(featuredProducts)
+
+    if (isClient) {
+      localStorage.setItem("products", JSON.stringify(products));
+      localStorage.setItem("featured_products", JSON.stringify(featuredProducts));
+    }
+  }
+
+  if (isClient) { getProducts() }
 
   // Whatsapp text
   const text = React.useMemo(() => {
@@ -118,32 +152,6 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [selectedImage, setSelectedImage] = React.useState<string>('')
-
-  const getProductsFromSheet = async () => {
-    const products = await api.list()
-    return {
-      props: {
-        products,
-      },
-      revalidate: 86400
-    }
-  }
-
-  const getProducts = async () => {
-    const products = (await getProductsFromSheet()).props.products
-    setProducts(products)
-
-    localStorage.setItem("products", JSON.stringify(products));
-    const featuredProducts = products.filter((p) => p.featured === "TRUE")
-    console.log(featuredProducts)
-    setFeaturedProducts(featuredProducts)
-    localStorage.setItem("featured_products", JSON.stringify(featuredProducts));
-
-  }
-
-  useEffect(() => {
-    getProducts()
-  }, [])
 
 
   useEffect(() => {

@@ -24,7 +24,7 @@ export default function ProductsGrid({ products }: Readonly<{ products: Product[
       {context?.selectedImage && (
         <Flex
           alignItems={"center"}
-          backgroundColor={"rgba(0,0,0,0.4)"}
+          backgroundColor={"rgba(0,0,0,0.7)"}
           justifyContent={"center"}
           key={"backdrop"}
           position={"fixed"}

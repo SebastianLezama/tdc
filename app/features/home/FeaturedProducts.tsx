@@ -10,7 +10,13 @@ import { useProductContext } from '@/app/context/store';
 
 
 
-const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAddToCart }: Readonly<{ products: Product[], setSelectedImage: any, parseCurrency: any, handleAddToCart: any }>) => {
+const FeaturedProducts = () => {
+  const context = useProductContext()
+
+  const products = context ? context?.products : []
+  const setSelectedImage = context?.setSelectedImage
+  const parseCurrency = context?.parseCurrency
+  const handleAddToCart = context?.addToCart
   
   const sliderSettings: SwiperOptions = {
     modules: [Navigation, Autoplay],
@@ -32,13 +38,12 @@ const FeaturedProducts = ({ products, setSelectedImage, parseCurrency, handleAdd
     minHeight: "300px"
   }
 
-  const context = useProductContext()
 
   return (
     <Flex justifyContent={"center"}>
       <Box maxWidth={{base: "90%", md: "80%"}} justifySelf={"center"} m={10}>
       <Swiper {...sliderSettings} style={{ width: "100%", height: "100%", gridTemplateColumns: "repeat(auto-fill, minmax( 250px, 1fr))" }}>
-        {products
+        {context && products
           .map((product) =>
             <SwiperSlide key={product.id} style={{ ...sliderStyles }}>
               <Box maxW={"200px"} minH={"350px"} alignContent={"center"} m={4} >
