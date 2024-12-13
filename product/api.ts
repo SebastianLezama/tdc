@@ -2,9 +2,16 @@ import { Product } from "./types";
 import axios from "axios"
 import Papa from "papaparse"
 
+function newAbortSignal(timeoutMs: number) {
+  const abortController = new AbortController();
+  setTimeout(() => abortController.abort(), timeoutMs || 0);
+
+  return abortController.signal;
+}
+
 export default {
   list: async (): Promise<Product[]> => {
-    return axios.get("https://docs.google.com/spreadsheets/d/e/2PACX-1vRQFdSYlCrAF-NhZG9PzsmOe5VsDSGoEICT4_uCEpl-JstJKhaGhW-Pq2hvp3khh7020eUK6RzkKlAf/pub?gid=0&single=true&output=csv", {responseType: 'blob'},)
+    return axios.get("https://docs.google.com/spreadsheets/d/e/2PACX-1vRQFdSYlCrAF-NhZG9PzsmOe5VsDSGoEICT4_uCEpl-JstJKhaGhW-Pq2hvp3khh7020eUK6RzkKlAf/pub?gid=0&single=true&output=csv", {responseType: 'blob', signal: AbortSignal.timeout(25000)})
     .then((res) => {
       return new Promise<Product[]>((resolve, reject) => {
         Papa.parse(res.data, {
@@ -17,7 +24,7 @@ export default {
               featured: String(prod.featured),
             })))
           },
-          error: (err) => reject(err.message),
+          error: (err: Error) => reject(err),
         })
       })
     })

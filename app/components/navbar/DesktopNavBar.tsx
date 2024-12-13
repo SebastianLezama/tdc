@@ -22,7 +22,9 @@ const DesktopNavBar = (props: Props) => {
         ))}
 
         <Box>
-          <Select placeholder='Categorias' onChange={(e)=> router.push(`/products/${e.target.value}`)}>
+          <Select placeholder='Categorias' onChange={(e)=> !e.target.value ? router.push("/products", {scroll: false}): router.push(`/products/?category=${e.target.value}`, {
+            scroll: false,
+          })}>
             {categories.map(category => <option key={category} value={category}>{category}
             </option>)}
           </Select>

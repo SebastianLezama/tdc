@@ -13,9 +13,11 @@ export const navItems: NavItem[] = [
 
 export const categories: string[] = [
   "Anime",
-  "Manga",
-  "Comics",
   "Peliculas",
   "Series",
   "Musica"
 ]
+
+export const Capitalize = (text: string) => {
+  return (text.charAt(0).toUpperCase() + text.slice(1))
+}

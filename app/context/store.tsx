@@ -1,13 +1,14 @@
 'use client'
 import api from "@/product/api";
-import { Product, ContextProps, Cart } from "@/product/types";
+import { Product, ContextProps, Cart, ProductsProviderProps } from "@/product/types";
 import { useDisclosure } from "@chakra-ui/react";
-import React, { Context, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+
 
 export const ProductsContext = createContext<ContextProps | null>(null)
 
 
-export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) => {
+export const ProductsProvider = ({ children }: ProductsProviderProps) => {
 
   const [isClient, setIsClient] = useState(false)
 
@@ -32,32 +33,35 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
   
   const getProductsFromSheet = async () => {
     const products = await api.list()
+    
     return {
       props: {
         products,
       },
-      revalidate: 86400
+      revalidate: 85000
     }
   }
   
-    useEffect(() => {
-      setIsClient(true)
-      getProducts()
-    }, [])
-
+  
   const getProducts = async () => {
-    const products = (await getProductsFromSheet()).props.products
+    const res = await getProductsFromSheet()
+    const products = res.props.products
+    console.log(products)
     setProducts(products)
-    const featuredProducts = products.filter((p) => p.featured === "TRUE")
+    const featuredProducts = products ? products.filter((p) => p.featured === "TRUE") :[]
     setFeaturedProducts(featuredProducts)
-
+    
     if (isClient) {
       localStorage.setItem("products", JSON.stringify(products));
       localStorage.setItem("featured_products", JSON.stringify(featuredProducts));
     }
   }
+  useEffect(() => {
+    setIsClient(true)
+    getProducts()
+  }, [])
 
-  if (isClient) { getProducts() }
+  // if (isClient) { getProducts() }
 
   // Whatsapp text
   const text = React.useMemo(() => {
@@ -87,8 +91,8 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     return cart.some((prod) => prod.id === id);
   };
 
-  const filteredItem = (item: Product) => {
-    return cart.find((prod) => prod.id === item.id);
+  const filteredItem = (id: number) => {
+    return products.find((prod: Product) => prod.id == id)
   };
 
 
@@ -180,7 +184,8 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     selectedImage,
     setSelectedImage,
     parseCurrency,
-    text
+    text,
+    filteredItem
   }), [cart,
     products,
     favorites,
@@ -199,7 +204,8 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
     selectedImage,
     setSelectedImage,
     parseCurrency,
-    text])
+    text,
+    filteredItem])
 
 
   return (
@@ -212,4 +218,12 @@ export const ProductsProvider: React.FC<React.ReactNode> = ({ children }: any) =
 
 }
 
-export const useProductContext = () => useContext(ProductsContext)
+export const useProductContext = () => {
+  
+  const context = useContext(ProductsContext)
+  if (!context) {
+    throw new Error('useProductContext must be used within a ProductsProvider')
+  }
+  
+  return context
+}

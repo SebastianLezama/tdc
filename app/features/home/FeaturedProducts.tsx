@@ -1,6 +1,5 @@
 'use client'
 import ProductCard from '@/app/components/products/ProductCard'
-import { Product } from '@/product/types'
 import { Box, Flex, Image } from '@chakra-ui/react'
 import React, { CSSProperties } from 'react'
 import { Autoplay, Navigation } from 'swiper/modules'
@@ -12,7 +11,6 @@ import { useProductContext } from '@/app/context/store';
 
 const FeaturedProducts = () => {
   const context = useProductContext()
-
   const products = context ? context?.products : []
   const setSelectedImage = context?.setSelectedImage
   const parseCurrency = context?.parseCurrency
@@ -46,7 +44,7 @@ const FeaturedProducts = () => {
         {context && products
           .map((product) =>
             <SwiperSlide key={product.id} style={{ ...sliderStyles }}>
-              <Box maxW={"200px"} minH={"350px"} alignContent={"center"} m={4} >
+              <Box minW={"140px"} minH={"350px"} alignContent={"center"} m={4} >
 
               <ProductCard product={product} setSelectedImage={setSelectedImage} parseCurrency={parseCurrency} handleAddToCart={handleAddToCart} />
               </Box>

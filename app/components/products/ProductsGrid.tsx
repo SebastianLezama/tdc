@@ -1,21 +1,29 @@
 'use client'
 import { Product } from '@/product/types';
 import { Box, Button, Flex, Grid, Image, Stack } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CartDrawer from '../CartDrawer';
 import ProductCard from './ProductCard';
 import { useProductContext } from '@/app/context/store';
+import { useSearchParams } from 'next/navigation';
 
 
-export default function ProductsGrid({ products }: Readonly<{ products: Product[] }>) {
+export default function ProductsGrid() {
   
   const context = useProductContext()
+  const products = context.products
+
+  const searchParams = useSearchParams()
+
+  const category = searchParams?.get('category')
+  const filteredProducts = !category ? products : products.filter(prod => prod.category === category)
+
 
   return (
     <Box mx={9}  >
       <Stack >
         <Grid gridGap={8} templateColumns="repeat(auto-fill, minmax(250px, 2fr))">
-          {products.map((product: Product) =>
+          {filteredProducts.map((product: Product) =>
             <ProductCard key={product.id} product={product} setSelectedImage={context?.setSelectedImage} handleAddToCart={context?.addToCart} parseCurrency={context?.parseCurrency} />
           )}
         </Grid>

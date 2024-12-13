@@ -53,4 +53,9 @@ export type ContextProps = {
   selectedImage: string
   parseCurrency: (value: number) => string
   text: string
+  filteredItem: (id: number) => Product
+}
+
+export type ProductsProviderProps = {
+  children: React.ReactNode
 }
